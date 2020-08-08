@@ -1,5 +1,16 @@
 @extends('layouts.app')
 
+@section('styles')
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css"
+    integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ=="
+    crossorigin=""/>
+
+    <link
+    rel="stylesheet"
+    href="https://unpkg.com/esri-leaflet-geocoder/dist/esri-leaflet-geocoder.css"
+  />
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -69,6 +80,37 @@
                     <p class="text-secondary mt-5 mb-3 text-center">El asistente colocará una dirección estimada, mueve le Pin hacia el lugar correcto</p>
 
                 </div>
+
+                <div class="form-group">
+                    <div id="mapa" style="height:400px; "></div>
+                </div>
+
+                <p class="informacion">Confirma que los siguientes campos son correctos</p>
+
+                <div class="form-group">
+                    <label for="direccion">Dirección :</label>
+                    <input type="text" id="direccion" class="form-control @error('direccion') is-invalid @enderror" placeholder="direccion" value="{{ old('direccion') }}">
+
+                    @error('direccion')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <div class="form-group">
+                    <label for="distrito">Distrito :</label>
+                    <input type="text" id="distrito" class="form-control @error('distrito') is-invalid @enderror" placeholder="distrito" value="{{ old('distrito') }}">
+
+                    @error('distrito')
+                        <div class="invalid-feedback">
+                            {{ $message }}
+                        </div>
+                    @enderror
+                </div>
+
+                <input type="hidden" id="lat" name="lat" value="{{ old('lat') }}">
+                <input type="hidden" id="lng" name="lng" value="{{ old('lng') }}">
             </fieldset>
 
         </form>
@@ -76,5 +118,19 @@
     </div>
 
 </div>
+
+
+@endsection
+
+@section('scripts')
+
+    <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js"
+    integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew=="
+    crossorigin=""></script>
+
+    <script src="https://unpkg.com/esri-leaflet" defer></script>
+    <script src="https://unpkg.com/esri-leaflet-geocoder" defer></script>
+
+
 
 @endsection
